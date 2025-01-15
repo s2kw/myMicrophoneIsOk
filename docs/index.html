@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <title>My Microphone Is OK?</title>
+
+    <!-- Tailwind CSS (Play CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* 折りたたみコンテンツの基本スタイル */
+        .collapsibleContent {
+            display: none; /* 初期は非表示 */
+            transition: all 0.2s ease-in-out;
+        }
+        .collapsibleContent.show {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+<!-- 全体コンテナ -->
+<div class="container mx-auto px-4 py-6">
+    <h1 class="text-3xl font-bold text-center mb-6">
+        My Microphone Is OK?
+    </h1>
+    <!-- 600px の幅にそろえるためのラッパ -->
+    <div class="max-w-[600px] mx-auto">
+        <!-- ★ ここに説明文を挿入 ★ -->
+        <p class="text-center text-sm text-gray-600 mb-6">
+            マイクの動作確認と音量チェックができるページです。<br/>やまびこ（遅延）再生で自分の声量・マイク感度・音質・音量を確認できます。<br/>録音やサーバー通信は行いません。
+        </p>
+
+        <!-- 利用規約 box -->
+        <div class="border-gray-200 rounded bg-white shadow-sm mb-4">
+            <!-- 見出し部分（クリックで開閉） -->
+            <div
+                    class="px-4 py-2 bg-gray-100 cursor-pointer flex items-center justify-between"
+                    onclick="toggleSection('termsContent')"
+            >
+                <span class="font-semibold">利用規約 (クリックで開閉)</span>
+                <!-- ▼アイコン -->
+                <svg
+                        class="w-5 h-5 text-gray-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 9l-7 7-7-7"
+                    ></path>
+                </svg>
+            </div>
+
+            <!-- 折りたたみコンテンツ -->
+            <div id="termsContent" class="collapsibleContent px-4 py-2">
+                <p class="mb-2">
+                    このウェブサイトは MIT License に基づいて提供されます。<br>
+                    制作者:
+                    <a
+                            href="https://jigax.jp/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-blue-600 underline"
+                    >
+                        jigaX
+                    </a>
+                    <br>
+                    ソースコード:
+                    <a
+                            href="https://github.com/s2kw/myMicrophoneIsOk"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-blue-600 underline"
+                    >
+                        GitHub リポジトリ
+                    </a>
+                </p>
+                <p class="mb-2">
+                    本サイトを利用することにより、以下の内容に同意したものとみなします:
+                </p>
+                <ul class="list-disc list-inside mb-2">
+                    <li>当サイトのコードを改変・再配布する場合は MIT License の表記を残すこと</li>
+                    <li>本サイトの利用やマイク操作により生じたいかなる損害についても制作者は責任を負いません</li>
+                    <li>本サイトは予告なく変更または公開停止される場合があります</li>
+                </ul>
+            </div>
+
+            <!-- チェックボックス -->
+            <label class="flex items-center px-4 py-2">
+                <input
+                        type="checkbox"
+                        id="agreeTerms"
+                        class="mr-2"
+                />
+                利用規約に同意する
+            </label>
+        </div>
+
+        <!-- プライバシーポリシー box -->
+        <div class="border-gray-200 rounded bg-white shadow-sm mb-4">
+            <!-- 見出し部分（クリックで開閉） -->
+            <div
+                    class="px-4 py-2 bg-gray-100 cursor-pointer flex items-center justify-between"
+                    onclick="toggleSection('privacyContent')"
+            >
+                <span class="font-semibold">プライバシーポリシー (クリックで開閉)</span>
+                <!-- ▼アイコン -->
+                <svg
+                        class="w-5 h-5 text-gray-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 9l-7 7-7-7"
+                    ></path>
+                </svg>
+            </div>
+
+            <!-- 折りたたみコンテンツ -->
+            <div id="privacyContent" class="collapsibleContent px-4 py-2">
+                <p class="mb-2">
+                    本サイトでは、ユーザのマイク入力をブラウザ内部で処理するのみで、
+                    録音やサーバーへの送信は一切行っておりません。<br>
+                    具体的には、マイクから取得した音声データをリアルタイム処理して波形を表示したり、
+                    遅延 (やまびこ) 再生する機能のみを提供しています。
+                </p>
+                <p class="mb-2">
+                    本サイトを利用するにあたって個人情報や端末情報などの収集は行いません。<br>
+                    また、ブラウザ外部に音声データを保存・送信することもありません。<br>
+                    どうぞ安心してご利用ください。
+                </p>
+            </div>
+
+            <!-- チェックボックス -->
+            <label class="flex items-center px-4 py-2">
+                <input
+                        type="checkbox"
+                        id="agreePrivacy"
+                        class="mr-2"
+                />
+                プライバシーポリシーに同意する
+            </label>
+        </div>
+
+        <!-- コントロール -->
+        <div id="controls" class="mb-6 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <label for="delaySlider" class="mr-2">やまびこ (Delay) 秒数:</label>
+                <input
+                        type="range"
+                        id="delaySlider"
+                        min="0"
+                        max="5"
+                        step="0.1"
+                        value="2"
+                        disabled
+                        class="mr-2"
+                />
+                <span id="delayValue" class="w-10 text-right">2.0</span>
+            </div>
+
+            <button
+                    id="startBtn"
+                    disabled
+                    class="px-6 py-2 rounded text-white bg-blue-500 disabled:bg-gray-400
+                 hover:bg-blue-600 font-semibold transition-colors"
+            >
+                Start (マイク利用を開始)
+            </button>
+        </div>
+
+        <!-- キャンバス (波形表示) -->
+        <div class="flex justify-center">
+            <canvas
+                    id="waveCanvas"
+                    width="600"
+                    height="200"
+                    class="border-gray-200 bg-white"
+            ></canvas>
+        </div>
+
+        <!-- 注意書き -->
+        <p class="text-sm text-gray-600 mt-6 text-center">
+            ※利用規約・プライバシーポリシーに同意すると「Start」ボタンが有効になります。<br>
+            ※一度 Start ボタンを押すとチェックを外すことはできなくなります。
+        </p>
+    </div>
+</div>
+
+<script>
+    // ======== 各種要素を取得 ========
+    const agreeTerms   = document.getElementById('agreeTerms');
+    const agreePrivacy = document.getElementById('agreePrivacy');
+    const startBtn     = document.getElementById('startBtn');
+    const delaySlider  = document.getElementById('delaySlider');
+    const delayValue   = document.getElementById('delayValue');
+    const waveCanvas   = document.getElementById('waveCanvas');
+    const waveCtx      = waveCanvas.getContext('2d');
+
+    let audioContext;
+    let analyser;
+    let delayNode;
+
+    /**
+     * 規約・ポリシーの見出しをクリックしたら、該当コンテンツの表示を切り替える
+     */
+    function toggleSection(contentId) {
+        const content = document.getElementById(contentId);
+        content.classList.toggle('show');
+    }
+
+    /**
+     * 両方のチェックボックスがオンになったらStartボタンとスライダを有効化
+     */
+    function updateButtonState() {
+        if (agreeTerms.checked && agreePrivacy.checked) {
+            startBtn.disabled = false;
+            delaySlider.disabled = false;
+        } else {
+            startBtn.disabled = true;
+            delaySlider.disabled = true;
+        }
+    }
+
+    agreeTerms.addEventListener('change', updateButtonState);
+    agreePrivacy.addEventListener('change', updateButtonState);
+
+    /**
+     * Startボタン押下時の処理
+     */
+    startBtn.addEventListener('click', async () => {
+        // 一度押されたらチェックを外せないように
+        agreeTerms.disabled   = true;
+        agreePrivacy.disabled = true;
+
+        if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        try {
+            // マイク入力取得
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+            // Web Audio Graph 構成
+            const source = audioContext.createMediaStreamSource(stream);
+
+            analyser = audioContext.createAnalyser();
+            analyser.fftSize = 2048;
+
+            delayNode = audioContext.createDelay(5.0); // 最大5秒
+            delayNode.delayTime.value = parseFloat(delaySlider.value);
+
+            // mic -> analyser -> delay -> destination
+            source.connect(analyser);
+            analyser.connect(delayNode);
+            delayNode.connect(audioContext.destination);
+
+            // 波形描画ループ開始
+            drawWaveform();
+        } catch (err) {
+            alert("マイクの使用が許可されませんでした。ブラウザの設定をご確認ください。");
+            console.error(err);
+        }
+    });
+
+    /**
+     * スライダ操作でディレイ時間を変更
+     */
+    delaySlider.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        delayValue.textContent = val.toFixed(1);
+        if (delayNode) {
+            delayNode.delayTime.value = val;
+        }
+    });
+
+    /**
+     * アナライザーから波形を取得し、canvasに描画するループ
+     */
+    function drawWaveform() {
+        requestAnimationFrame(drawWaveform);
+        if (!analyser) return;
+
+        const bufferLength = analyser.fftSize;
+        const dataArray = new Uint8Array(bufferLength);
+        analyser.getByteTimeDomainData(dataArray);
+
+        // 背景をクリア
+        waveCtx.fillStyle = 'rgb(255, 255, 255)';
+        waveCtx.fillRect(0, 0, waveCanvas.width, waveCanvas.height);
+
+        waveCtx.lineWidth = 2;
+        waveCtx.strokeStyle = 'rgb(0, 0, 0)';
+        waveCtx.beginPath();
+
+        const sliceWidth = waveCanvas.width * 1.0 / bufferLength;
+        let x = 0;
+
+        for (let i = 0; i < bufferLength; i++) {
+            const v = dataArray[i] / 128.0; // 128が中央
+            const y = v * (waveCanvas.height / 2);
+
+            if (i === 0) {
+                waveCtx.moveTo(x, y);
+            } else {
+                waveCtx.lineTo(x, y);
+            }
+            x += sliceWidth;
+        }
+
+        waveCtx.lineTo(waveCanvas.width, waveCanvas.height / 2);
+        waveCtx.stroke();
+    }
+</script>
+</body>
+</html>
