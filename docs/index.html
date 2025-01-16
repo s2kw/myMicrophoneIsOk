@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8" />
-    <title>My Microphone Is OK?</title>
+    <title>My Microphone is OK?</title>
 
     <!-- Tailwind CSS (Play CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -26,13 +26,13 @@
     </h1>
     <!-- 600px の幅にそろえるためのラッパ -->
     <div class="max-w-[600px] mx-auto">
-        <!-- ★ ここに説明文を挿入 ★ -->
+        <!-- 説明文 -->
         <p class="text-center text-sm text-gray-600 mb-6">
             マイクの動作確認と音量チェックができるページです。<br/>やまびこ（遅延）再生で自分の声量・マイク感度・音質・音量を確認できます。<br/>録音やサーバー通信は行いません。
         </p>
 
         <!-- 利用規約 box -->
-        <div class="border-gray-200 rounded bg-white shadow-sm mb-4">
+        <div class="border border-gray-300 rounded bg-white shadow-sm mb-4">
             <!-- 見出し部分（クリックで開閉） -->
             <div
                     class="px-4 py-2 bg-gray-100 cursor-pointer flex items-center justify-between"
@@ -89,20 +89,10 @@
                     <li>本サイトは予告なく変更または公開停止される場合があります</li>
                 </ul>
             </div>
-
-            <!-- チェックボックス -->
-            <label class="flex items-center px-4 py-2">
-                <input
-                        type="checkbox"
-                        id="agreeTerms"
-                        class="mr-2"
-                />
-                利用規約に同意する
-            </label>
         </div>
 
         <!-- プライバシーポリシー box -->
-        <div class="border-gray-200 rounded bg-white shadow-sm mb-4">
+        <div class="border border-gray-300 rounded bg-white shadow-sm mb-4">
             <!-- 見出し部分（クリックで開閉） -->
             <div
                     class="px-4 py-2 bg-gray-100 cursor-pointer flex items-center justify-between"
@@ -140,16 +130,6 @@
                     どうぞ安心してご利用ください。
                 </p>
             </div>
-
-            <!-- チェックボックス -->
-            <label class="flex items-center px-4 py-2">
-                <input
-                        type="checkbox"
-                        id="agreePrivacy"
-                        class="mr-2"
-                />
-                プライバシーポリシーに同意する
-            </label>
         </div>
 
         <!-- コントロール -->
@@ -171,9 +151,7 @@
 
             <button
                     id="startBtn"
-                    disabled
-                    class="px-6 py-2 rounded text-white bg-blue-500 disabled:bg-gray-400
-                 hover:bg-blue-600 font-semibold transition-colors"
+                    class="px-6 py-2 rounded text-white bg-blue-500 hover:bg-blue-600 font-semibold transition-colors"
             >
                 Start (マイク利用を開始)
             </button>
@@ -185,22 +163,20 @@
                     id="waveCanvas"
                     width="600"
                     height="200"
-                    class="border-gray-200 bg-white"
+                    class="border border-gray-300 bg-white"
             ></canvas>
         </div>
 
         <!-- 注意書き -->
         <p class="text-sm text-gray-600 mt-6 text-center">
-            ※利用規約・プライバシーポリシーに同意すると「Start」ボタンが有効になります。<br>
-            ※一度 Start ボタンを押すとチェックを外すことはできなくなります。
+            ※「Start」ボタンを押すことで利用規約・プライバシーポリシーに同意したものとみなされます。<br>
+            ※一度「Start」ボタンを押すとポリシーへの同意を取り消すことはできません。
         </p>
     </div>
 </div>
 
 <script>
     // ======== 各種要素を取得 ========
-    const agreeTerms   = document.getElementById('agreeTerms');
-    const agreePrivacy = document.getElementById('agreePrivacy');
     const startBtn     = document.getElementById('startBtn');
     const delaySlider  = document.getElementById('delaySlider');
     const delayValue   = document.getElementById('delayValue');
@@ -220,28 +196,11 @@
     }
 
     /**
-     * 両方のチェックボックスがオンになったらStartボタンとスライダを有効化
-     */
-    function updateButtonState() {
-        if (agreeTerms.checked && agreePrivacy.checked) {
-            startBtn.disabled = false;
-            delaySlider.disabled = false;
-        } else {
-            startBtn.disabled = true;
-            delaySlider.disabled = true;
-        }
-    }
-
-    agreeTerms.addEventListener('change', updateButtonState);
-    agreePrivacy.addEventListener('change', updateButtonState);
-
-    /**
      * Startボタン押下時の処理
      */
     startBtn.addEventListener('click', async () => {
-        // 一度押されたらチェックを外せないように
-        agreeTerms.disabled   = true;
-        agreePrivacy.disabled = true;
+        // 一度押されたらポリシーへの同意を取り消せないようにする
+        startBtn.disabled = true;
 
         if (!audioContext) {
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -270,6 +229,7 @@
         } catch (err) {
             alert("マイクの使用が許可されませんでした。ブラウザの設定をご確認ください。");
             console.error(err);
+            startBtn.disabled = false; // エラー時はボタンを再度有効化
         }
     });
 
